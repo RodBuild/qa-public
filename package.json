@@ -1,0 +1,31 @@
+{
+  "name": "@rodbuild/qa-public",
+  "version": "0.0.1",
+  "description": "A package to combine with WDIO software; explore a collection of re-usable functions to simplify your testing workflow!",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Rodrigo Rodriguez",
+  "license": "MIT",
+  "dependencies": {
+    "@wdio/globals": "^8.32.2",
+    "@wdio/types": "^8.32.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://e.com"
+  },
+  "scripts": {
+    "link": "npm link && npm link @rodbuild/qa-public --prefix ./developing/wdio",
+    "test": "npm run wdio --prefix ./developing/wdio"
+  },
+  "files": [
+    "/dist"
+  ],
+  "keywords": [
+    "qa",
+    "wdio",
+    "automated testing"
+  ]
+}
