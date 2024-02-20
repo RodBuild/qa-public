@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://e.com"
+    "url": "git+https://github.com/RodBuild/qa-public.git"
   },
   "scripts": {
     "link": "npm link && npm link @rodbuild/qa-public --prefix ./developing/wdio",
