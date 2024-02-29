@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.browserGetDescription = exports.browserGetTitle = exports.browserResizeWindow = void 0;
+exports.browserOpenUrl = exports.browserGetDescription = exports.browserGetTitle = exports.browserResizeWindow = void 0;
 const browserResizeWindow = async (view, size) => {
     if (view) {
         if (view === 'desktop')
@@ -27,4 +27,21 @@ const browserGetDescription = async () => {
     return text;
 };
 exports.browserGetDescription = browserGetDescription;
+/**
+ * @param element Element to find after page loads, defaults to h1
+ * @example browserOpenUrl('gummybears.com', 10000, 'h1')
+ */
+const browserOpenUrl = async (url, timeout, element) => {
+    await browser.url(url);
+    const elementSelector = element ?? 'h1';
+    if (element) {
+        const mainElement = await $(elementSelector);
+        await mainElement.waitForExist({
+            timeout: timeout,
+            timeoutMsg: `The requested page does not contain an element of ${elementSelector}`,
+        });
+    }
+    await browser.pause(800);
+};
+exports.browserOpenUrl = browserOpenUrl;
 //# sourceMappingURL=index.js.map

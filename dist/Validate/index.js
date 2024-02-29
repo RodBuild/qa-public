@@ -1,20 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.objectIsNumber = exports.objectIsString = exports.objectIsArray = exports.getElement = void 0;
-/**
- * Get a DOM element using the selector parameter
- * @param selector The target element
- * @example
- * const sectionTitle = await getElement('[data-testid="header-2-id"]')
- * const sectionSubTitle = await getElement($('[data-testid="subheader-2-id"]'))
- */
-const getElement = async (selector) => {
-    if (!selector)
-        throw new Error('Function getElement() recieved an undefined value, verify your code.');
-    let element = await $(await selector);
-    return element;
-};
-exports.getElement = getElement;
+exports.objectIsNumber = exports.objectIsString = exports.objectIsArray = void 0;
 const objectIsArray = (object) => {
     if (Array.isArray(object) === true || Object.prototype.toString.call(object) === '[object Array]') {
         return true;

@@ -1,1 +1,1 @@
-export * from './src/index'
+export { Interface, Validate } from './src/index'

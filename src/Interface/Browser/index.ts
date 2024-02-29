@@ -20,5 +20,21 @@ const browserGetDescription = async () => {
   const text = (await $('meta[name="description"]')).getAttribute('content')
   return text
 }
+/**
+ * @param element Element to find after page loads, defaults to h1
+ * @example browserOpenUrl('gummybears.com', 10000, 'h1')
+ */
+const browserOpenUrl = async (url: string, timeout: number, element: string | undefined) => {
+  await browser.url(url)
+  const elementSelector = element ?? 'h1'
+  if (element) {
+    const mainElement = await $(elementSelector)
+    await mainElement.waitForExist({
+      timeout: timeout,
+      timeoutMsg: `The requested page does not contain an element of ${elementSelector}`,
+    })
+  }
+  await browser.pause(800)
+}
 
-export { browserResizeWindow, browserGetTitle, browserGetDescription }
+export { browserResizeWindow, browserGetTitle, browserGetDescription, browserOpenUrl }

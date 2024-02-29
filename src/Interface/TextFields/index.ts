@@ -1,7 +1,7 @@
-import * as Validate from '../../Validate/index'
+import * as Element from '../Element/index'
 
 const inputIsDisplayAndInsertText = async (selector: WebdriverIO.Element | string, text: string, timeout: number) => {
-  const element = await Validate.getElement(selector)
+  const element = await Element.getElement(selector)
   element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' })
   const elementValue = await element.getValue()
   if (elementValue !== '') {
@@ -14,7 +14,7 @@ const inputIsDisplayAndInsertText = async (selector: WebdriverIO.Element | strin
   await element.setValue(text)
 }
 const inputIsDisplayedAndRemoveText = async (selector: WebdriverIO.Element | string, timeout: number) => {
-  const element = await Validate.getElement(selector)
+  const element = await Element.getElement(selector)
   element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' })
   const elementValue = await element.getValue()
   if (elementValue !== '') {

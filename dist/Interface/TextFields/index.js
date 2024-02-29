@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inputIsDisplayedAndRemoveText = exports.inputIsDisplayAndInsertText = void 0;
-const Validate = require("../../Validate/index");
+const Element = require("../Element/index");
 const inputIsDisplayAndInsertText = async (selector, text, timeout) => {
-    const element = await Validate.getElement(selector);
+    const element = await Element.getElement(selector);
     element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' });
     const elementValue = await element.getValue();
     if (elementValue !== '') {
@@ -16,7 +16,7 @@ const inputIsDisplayAndInsertText = async (selector, text, timeout) => {
 };
 exports.inputIsDisplayAndInsertText = inputIsDisplayAndInsertText;
 const inputIsDisplayedAndRemoveText = async (selector, timeout) => {
-    const element = await Validate.getElement(selector);
+    const element = await Element.getElement(selector);
     element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' });
     const elementValue = await element.getValue();
     if (elementValue !== '') {
