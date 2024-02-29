@@ -26,4 +26,8 @@ declare const elementIsEnabled: (selector: WebdriverIO.Element | string, name: s
 declare const elementIsNotEnabled: (selector: WebdriverIO.Element | string, name: string, timeout: number) => Promise<void>;
 declare const elementContainsAttribute: (selector: WebdriverIO.Element | string, name: string, timeout: number, attribute: string) => Promise<void>;
 declare const elementHasAttributeWithValue: (selector: WebdriverIO.Element | string, name: string, timeout: number, attribute: string, attributeValue: string) => Promise<void>;
-export { getElement, getElements, elementQuantityIsValid, elementIsDisplayed, elementIsEnabled, elementIsNotEnabled, elementContainsAttribute, elementHasAttributeWithValue, };
+/**
+ * @example <p>Text Value</p>
+ */
+declare const elementHasTextValue: (selector: WebdriverIO.Element | string, name: string, timeout: number, text: string) => Promise<void>;
+export { getElement, getElements, elementQuantityIsValid, elementIsDisplayed, elementIsEnabled, elementIsNotEnabled, elementContainsAttribute, elementHasAttributeWithValue, elementHasTextValue, };

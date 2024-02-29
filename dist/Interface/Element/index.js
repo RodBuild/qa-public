@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.elementHasAttributeWithValue = exports.elementContainsAttribute = exports.elementIsNotEnabled = exports.elementIsEnabled = exports.elementIsDisplayed = exports.elementQuantityIsValid = exports.getElements = exports.getElement = void 0;
+exports.elementHasTextValue = exports.elementHasAttributeWithValue = exports.elementContainsAttribute = exports.elementIsNotEnabled = exports.elementIsEnabled = exports.elementIsDisplayed = exports.elementQuantityIsValid = exports.getElements = exports.getElement = void 0;
 const Validate = require("../../Validate/index");
 function getElementName(text) {
     if (Validate.objectIsString(text) === true && text !== '') {
@@ -103,4 +103,16 @@ const elementHasAttributeWithValue = async (selector, name, timeout, attribute, 
         throw new Error(`${elementName} contains the attribute ${attribute} with an invalid value.`);
 };
 exports.elementHasAttributeWithValue = elementHasAttributeWithValue;
+/**
+ * @example <p>Text Value</p>
+ */
+const elementHasTextValue = async (selector, name, timeout, text) => {
+    const element = await getElement(selector);
+    const elementName = getElementName(name);
+    await elementIsDisplayed(element, elementName, timeout);
+    const elementTextValue = await element.getText();
+    if (elementTextValue.includes(text) === false)
+        throw new Error(`${elementName} does not contain the expected text value.`);
+};
+exports.elementHasTextValue = elementHasTextValue;
 //# sourceMappingURL=index.js.map

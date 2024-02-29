@@ -110,6 +110,22 @@ const elementHasAttributeWithValue = async (
   if (elementAttr.includes(attributeValue) === false)
     throw new Error(`${elementName} contains the attribute ${attribute} with an invalid value.`)
 }
+/**
+ * @example <p>Text Value</p>
+ */
+const elementHasTextValue = async (
+  selector: WebdriverIO.Element | string,
+  name: string,
+  timeout: number,
+  text: string
+) => {
+  const element = await getElement(selector)
+  const elementName = getElementName(name)
+  await elementIsDisplayed(element, elementName, timeout)
+  const elementTextValue = await element.getText()
+  if (elementTextValue.includes(text) === false)
+    throw new Error(`${elementName} does not contain the expected text value.`)
+}
 
 export {
   getElement,
@@ -120,4 +136,5 @@ export {
   elementIsNotEnabled,
   elementContainsAttribute,
   elementHasAttributeWithValue,
+  elementHasTextValue,
 }
