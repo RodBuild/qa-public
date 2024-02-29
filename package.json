@@ -19,8 +19,6 @@
   "scripts": {
     "tsc": "npx tsc",
     "link": "npm link && cd ./developing/wdio && npm link @rodbuild/qa-public",
-    "dev1": "npm link",
-    "dev2": "cd ./developing/wdio && npm link @rodbuild/qa-public",
     "test": "npm run wdio --prefix ./developing/wdio"
   },
   "files": [
