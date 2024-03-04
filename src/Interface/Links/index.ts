@@ -1,17 +1,27 @@
-import * as Element from '../Element/index'
+import {
+  getElement,
+  elementIsDisplayed,
+  elementContainsAttribute,
+  elementIsEnabled,
+  elementHasAttributeWithValue,
+} from '../Element/index'
+import { getFunctionTimeout } from '../../Utils'
+
+const defaultName = 'Link'
+const defaultTimeout = 8000
 
 const linkIsDisplayedAndVerifyHref = async (selector: WebdriverIO.Element | string, href: string, timeout: number) => {
-  const element = await Element.getElement(selector)
-  await Element.elementIsDisplayed(element, 'Link', timeout)
-  await Element.elementContainsAttribute(element, 'Link', timeout, 'href')
-  const elementHrefValue = await element.getAttribute('href')
-  if (elementHrefValue.includes(href) === false)
-    throw new Error('Href value of the link is not equal to the expected one.')
+  const element = await getElement(selector)
+  const timeoutValue = getFunctionTimeout(timeout) ?? defaultTimeout
+  await elementIsDisplayed(element, defaultName, timeoutValue)
+  await elementContainsAttribute(element, defaultName, timeoutValue, 'href')
+  await elementHasAttributeWithValue(element, defaultName, timeoutValue, 'href', href)
 }
 const linkIsDisplayedAndEnabled = async (selector: WebdriverIO.Element | string, timeout: number) => {
-  const element = await Element.getElement(selector)
-  await Element.elementIsDisplayed(element, 'Link', timeout)
-  await Element.elementIsEnabled(element, 'Link', timeout)
+  const element = await getElement(selector)
+  const timeoutValue = getFunctionTimeout(timeout) ?? defaultTimeout
+  await elementIsDisplayed(element, defaultName, timeoutValue)
+  await elementIsEnabled(element, defaultName, timeoutValue)
 }
 
 export { linkIsDisplayedAndVerifyHref, linkIsDisplayedAndEnabled }

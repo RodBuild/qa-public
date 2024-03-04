@@ -1,11 +1,7 @@
-import * as Validate from '../../Validate/index'
+import * as Utils from '../../Utils'
 
-function getElementName(text: string) {
-  if (Validate.objectIsString(text) === true && text !== '') {
-    return text
-  }
-  return 'Element'
-}
+const defaultName = 'Element'
+const defaultTimeout = 8000
 
 /**
  * Get a DOM element using the selector parameter
@@ -37,7 +33,8 @@ const elementQuantityIsValid = async (
   timeout: number,
   quantity: number
 ) => {
-  const elementName = getElementName(name)
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
   await browser.waitUntil(
     async () => {
       const elements = await getElements(selector)
@@ -48,26 +45,31 @@ const elementQuantityIsValid = async (
       return false
     },
     {
-      timeout: timeout,
+      timeout: timeoutValue,
       timeoutMsg: `The quantity ${elementName} is not valid.`,
     }
   )
 }
 const elementIsDisplayed = async (selector: WebdriverIO.Element | string, name: string, timeout: number) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await element.waitForExist({ timeout: timeout, timeoutMsg: `${elementName} not found.` })
-  await element.waitForDisplayed({ timeout: timeout, timeoutMsg: `${elementName} is not visible in the viewport.` })
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
+  await element.waitForDisplayed({
+    timeout: timeoutValue,
+    timeoutMsg: `${elementName} is not visible in the viewport.`,
+  })
 }
 /**
  * @example <input disabled>...</input>
  */
 const elementIsEnabled = async (selector: WebdriverIO.Element | string, name: string, timeout: number) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await element.waitForExist({ timeout: timeout, timeoutMsg: `${elementName} not found.` })
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
   await element.waitForEnabled({
-    timeout: timeout,
+    timeout: timeoutValue,
     timeoutMsg: `${elementName} is not enabled.`,
   })
 }
@@ -76,10 +78,11 @@ const elementIsEnabled = async (selector: WebdriverIO.Element | string, name: st
  */
 const elementIsNotEnabled = async (selector: WebdriverIO.Element | string, name: string, timeout: number) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await element.waitForExist({ timeout: timeout, timeoutMsg: `${elementName} not found.` })
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
   await element.waitForEnabled({
-    timeout: timeout,
+    timeout: timeoutValue,
     timeoutMsg: `${elementName} is enabled.`,
     reverse: true,
   })
@@ -91,8 +94,9 @@ const elementContainsAttribute = async (
   attribute: string
 ) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await element.waitForExist({ timeout: timeout, timeoutMsg: `${elementName} not found.` })
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
   const elementAttr = await element.getAttribute(attribute)
   if (!elementAttr) throw new Error(`${elementName} does not contain the attribute ${attribute}.`)
 }
@@ -104,8 +108,9 @@ const elementHasAttributeWithValue = async (
   attributeValue: string
 ) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await elementContainsAttribute(element, elementName, timeout, attribute)
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await elementContainsAttribute(element, elementName, timeoutValue, attribute)
   const elementAttr = await element.getAttribute(attribute)
   if (elementAttr.includes(attributeValue) === false)
     throw new Error(`${elementName} contains the attribute ${attribute} with an invalid value.`)
@@ -120,8 +125,9 @@ const elementHasTextValue = async (
   text: string
 ) => {
   const element = await getElement(selector)
-  const elementName = getElementName(name)
-  await elementIsDisplayed(element, elementName, timeout)
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await elementIsDisplayed(element, elementName, timeoutValue)
   const elementTextValue = await element.getText()
   if (elementTextValue.includes(text) === false)
     throw new Error(`${elementName} does not contain the expected text value.`)

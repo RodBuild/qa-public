@@ -49,6 +49,6 @@ Functions start with a name that relates to their funcionality
 
 - <a>Link</a>
 - <button>Button</button>
-- <input type="text" placeholder="input text">
+- Input <input type="text" placeholder="input text">
 - <div>Elements is for any DOM HTML</div>
 - **browser**, the window object in WDIO context

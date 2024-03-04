@@ -36,5 +36,8 @@ const browserOpenUrl = async (url: string, timeout: number, element: string | un
   }
   await browser.pause(800)
 }
+const browserURLHasTextValue = async (text: string) => {
+  await expect(browser).toHaveUrl(expect.stringContaining(text))
+}
 
-export { browserResizeWindow, browserGetTitle, browserGetDescription, browserOpenUrl }
+export { browserResizeWindow, browserGetTitle, browserGetDescription, browserOpenUrl, browserURLHasTextValue }
