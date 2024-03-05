@@ -5,7 +5,7 @@ import {
   elementIsEnabled,
   elementHasAttributeWithValue,
 } from '../Element/index'
-import { getFunctionTimeout } from '../../Utils'
+import { getFunctionTimeout } from '../../utils'
 
 const defaultName = 'Link'
 const defaultTimeout = 8000

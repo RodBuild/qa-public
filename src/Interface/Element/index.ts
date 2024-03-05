@@ -1,4 +1,5 @@
-import * as Utils from '../../Utils'
+import * as Utils from '../../utils'
+import { objectIsString } from '../../Validate'
 
 const defaultName = 'Element'
 const defaultTimeout = 8000
@@ -10,10 +11,16 @@ const defaultTimeout = 8000
  * const sectionTitle = await getElement('[data-testid="header-2-id"]')
  * const sectionSubTitle = await getElement($('[data-testid="subheader-2-id"]'))
  */
-const getElement = async (selector: string | WebdriverIO.Element | Promise<WebdriverIO.Element>) => {
+const getElement = async (
+  selector: string | WebdriverIO.Element | Promise<WebdriverIO.Element>
+): Promise<WebdriverIO.Element> => {
   if (!selector) throw new Error('Function getElement() recieved an undefined value, verify your code.')
-  let element = await $(await selector)
-  return element
+  if (objectIsString(selector) == true) {
+    let element = await $(await selector)
+    return element
+  }
+  //@ts-ignore
+  return await selector
 }
 /**
  * Get a DOM elements using the selector parameter
@@ -22,10 +29,16 @@ const getElement = async (selector: string | WebdriverIO.Element | Promise<Webdr
  * const resultsCards = await getElements('[data-testid="result-card"]')
  * const navigationCards = await getElements($$('[data-testid="nav-card"]'))
  */
-const getElements = async (selector: string | WebdriverIO.Element[] | Promise<WebdriverIO.Element[]>) => {
+const getElements = async (
+  selector: string | WebdriverIO.Element[] | Promise<WebdriverIO.Element[]>
+): Promise<WebdriverIO.ElementArray> => {
   if (!selector) throw new Error('Function getElements() recieved an undefined value, verify your code.')
-  let elements = await $$(await selector)
-  return elements
+  if (objectIsString(selector) == true) {
+    let elements = await $$(await selector)
+    return elements
+  }
+  //@ts-ignore
+  return await selector
 }
 const elementQuantityIsValid = async (
   selector: WebdriverIO.Element[] | string,

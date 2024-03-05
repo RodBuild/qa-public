@@ -9,4 +9,5 @@ declare const browserGetDescription: () => Promise<string>;
  * @example browserOpenUrl('gummybears.com', 10000, 'h1')
  */
 declare const browserOpenUrl: (url: string, timeout: number, element: string | undefined) => Promise<void>;
-export { browserResizeWindow, browserGetTitle, browserGetDescription, browserOpenUrl };
+declare const browserURLHasTextValue: (text: string) => Promise<void>;
+export { browserResizeWindow, browserGetTitle, browserGetDescription, browserOpenUrl, browserURLHasTextValue };

@@ -1,10 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inputIsDisplayedAndRemoveText = exports.inputIsDisplayAndInsertText = void 0;
-const Element = require("../Element/index");
+const index_1 = require("../Element/index");
+const utils_1 = require("../../utils");
+const defaultName = 'Text Field';
+const defaultTimeout = 8000;
 const inputIsDisplayAndInsertText = async (selector, text, timeout) => {
-    const element = await Element.getElement(selector);
-    element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' });
+    const element = await (0, index_1.getElement)(selector);
+    const timeoutValue = (0, utils_1.getFunctionTimeout)(timeout) ?? defaultTimeout;
+    await (0, index_1.elementIsDisplayed)(element, defaultName, timeoutValue);
     const elementValue = await element.getValue();
     if (elementValue !== '') {
         for (let i = 0; i < elementValue.length; i += 1) {
@@ -16,8 +20,9 @@ const inputIsDisplayAndInsertText = async (selector, text, timeout) => {
 };
 exports.inputIsDisplayAndInsertText = inputIsDisplayAndInsertText;
 const inputIsDisplayedAndRemoveText = async (selector, timeout) => {
-    const element = await Element.getElement(selector);
-    element.waitForDisplayed({ timeout: timeout, timeoutMsg: 'Input field not found' });
+    const element = await (0, index_1.getElement)(selector);
+    const timeoutValue = (0, utils_1.getFunctionTimeout)(timeout) ?? defaultTimeout;
+    await (0, index_1.elementIsDisplayed)(element, defaultName, timeoutValue);
     const elementValue = await element.getValue();
     if (elementValue !== '') {
         for (let i = 0; i < elementValue.length; i += 1) {

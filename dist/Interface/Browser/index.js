@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.browserOpenUrl = exports.browserGetDescription = exports.browserGetTitle = exports.browserResizeWindow = void 0;
+exports.browserURLHasTextValue = exports.browserOpenUrl = exports.browserGetDescription = exports.browserGetTitle = exports.browserResizeWindow = void 0;
 const browserResizeWindow = async (view, size) => {
     if (view) {
         if (view === 'desktop')
@@ -44,4 +44,8 @@ const browserOpenUrl = async (url, timeout, element) => {
     await browser.pause(800);
 };
 exports.browserOpenUrl = browserOpenUrl;
+const browserURLHasTextValue = async (text) => {
+    await expect(browser).toHaveUrl(expect.stringContaining(text));
+};
+exports.browserURLHasTextValue = browserURLHasTextValue;
 //# sourceMappingURL=index.js.map

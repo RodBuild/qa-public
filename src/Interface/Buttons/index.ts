@@ -1,5 +1,5 @@
 import { getElement, elementIsDisplayed } from '../Element/index'
-import { getFunctionTimeout } from '../../Utils'
+import { getFunctionTimeout } from '../../utils'
 
 const defaultName = 'Button'
 const defaultTimeout = 8000
