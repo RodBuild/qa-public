@@ -13,8 +13,8 @@ declare const getElement: (selector: string | WebdriverIO.Element | Promise<Webd
  * const resultsCards = await getElements('[data-testid="result-card"]')
  * const navigationCards = await getElements($$('[data-testid="nav-card"]'))
  */
-declare const getElements: (selector: string | WebdriverIO.Element[] | Promise<WebdriverIO.Element[]>) => Promise<WebdriverIO.ElementArray>;
-declare const elementQuantityIsValid: (selector: WebdriverIO.Element[] | string, name: string, timeout: number, quantity: number) => Promise<void>;
+declare const getElements: (selector: string | WebdriverIO.ElementArray | Promise<WebdriverIO.ElementArray>) => Promise<WebdriverIO.ElementArray>;
+declare const elementQuantityIsValid: (selector: string | WebdriverIO.ElementArray | Promise<WebdriverIO.ElementArray>, name: string, timeout: number, quantity: number) => Promise<void>;
 declare const elementIsExistingAndScrollIntoView: (selector: WebdriverIO.Element | string, name: string, timeout: number) => Promise<void>;
 declare const elementIsDisplayed: (selector: WebdriverIO.Element | string, name: string, timeout: number) => Promise<void>;
 /**

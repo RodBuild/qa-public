@@ -30,18 +30,19 @@ const getElement = async (
  * const navigationCards = await getElements($$('[data-testid="nav-card"]'))
  */
 const getElements = async (
-  selector: string | WebdriverIO.Element[] | Promise<WebdriverIO.Element[]>
+  selector: string | WebdriverIO.ElementArray | Promise<WebdriverIO.ElementArray>
 ): Promise<WebdriverIO.ElementArray> => {
   if (!selector) throw new Error('Function getElements() recieved an undefined value, verify your code.')
   if (objectIsString(selector) == true) {
-    let elements = await $$(await selector)
+    //@ts-ignore
+    let elements = await $$(selector)
     return elements
   }
   //@ts-ignore
   return await selector
 }
 const elementQuantityIsValid = async (
-  selector: WebdriverIO.Element[] | string,
+  selector: string | WebdriverIO.ElementArray | Promise<WebdriverIO.ElementArray>,
   name: string,
   timeout: number,
   quantity: number
@@ -191,7 +192,7 @@ const elementHasCSSWithValue = async (
   const cssAttribute = await element.getCSSProperty(css)
   if (cssAttribute?.value && cssAttribute?.value !== '') {
     if (cssAttribute.value.includes(cssValue) === false)
-      throw new Error(`${elementName} contain the CSS attribute ${css} with an invalid value.`)
+      throw new Error(`${elementName} contains the CSS attribute ${css} with an invalid value.`)
   } else {
     throw new Error(`${elementName} does not contain the CSS attribute of ${css}.`)
   }

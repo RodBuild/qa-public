@@ -34,7 +34,8 @@ const getElements = async (selector) => {
     if (!selector)
         throw new Error('Function getElements() recieved an undefined value, verify your code.');
     if ((0, Validate_1.objectIsString)(selector) == true) {
-        let elements = await $$(await selector);
+        //@ts-ignore
+        let elements = await $$(selector);
         return elements;
     }
     //@ts-ignore
@@ -166,7 +167,7 @@ const elementHasCSSWithValue = async (selector, name, timeout, css, cssValue) =>
     const cssAttribute = await element.getCSSProperty(css);
     if (cssAttribute?.value && cssAttribute?.value !== '') {
         if (cssAttribute.value.includes(cssValue) === false)
-            throw new Error(`${elementName} contain the CSS attribute ${css} with an invalid value.`);
+            throw new Error(`${elementName} contains the CSS attribute ${css} with an invalid value.`);
     }
     else {
         throw new Error(`${elementName} does not contain the CSS attribute of ${css}.`);
