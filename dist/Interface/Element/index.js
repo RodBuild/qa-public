@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.elementHasTextValue = exports.elementHasAttributeWithValue = exports.elementContainsAttribute = exports.elementIsNotEnabled = exports.elementIsEnabled = exports.elementIsDisplayed = exports.elementQuantityIsValid = exports.getElements = exports.getElement = void 0;
+exports.elementHasCSSWithValue = exports.elementHasTextValue = exports.elementHasAttributeWithValue = exports.elementContainsAttribute = exports.elementIsNotEnabled = exports.elementIsEnabled = exports.elementIsDisplayed = exports.elementIsExistingAndScrollIntoView = exports.elementQuantityIsValid = exports.getElements = exports.getElement = void 0;
 const Utils = require("../../utils");
 const Validate_1 = require("../../Validate");
 const defaultName = 'Element';
@@ -57,6 +57,15 @@ const elementQuantityIsValid = async (selector, name, timeout, quantity) => {
     });
 };
 exports.elementQuantityIsValid = elementQuantityIsValid;
+const elementIsExistingAndScrollIntoView = async (selector, name, timeout) => {
+    const element = await getElement(selector);
+    const elementName = Utils.getFunctionElementName(name) ?? defaultName;
+    const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout;
+    await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` });
+    await element.scrollIntoView();
+    await browser.pause(850);
+};
+exports.elementIsExistingAndScrollIntoView = elementIsExistingAndScrollIntoView;
 const elementIsDisplayed = async (selector, name, timeout) => {
     const element = await getElement(selector);
     const elementName = Utils.getFunctionElementName(name) ?? defaultName;
@@ -130,4 +139,38 @@ const elementHasTextValue = async (selector, name, timeout, text) => {
         throw new Error(`${elementName} does not contain the expected text value.`);
 };
 exports.elementHasTextValue = elementHasTextValue;
+const elementGetCSS = async (selector, name, timeout) => {
+    const array = [
+        {
+            name: '',
+            value: '',
+        },
+    ];
+    const element = await $(selector);
+    const elementName = name;
+    const timeoutValue = timeout;
+    const css = await element.getAttribute('style');
+    const parts = css.split(';');
+    console.log(parts);
+    return array;
+};
+const elementContainsCSS = async () => { };
+/**
+ * @example <div style=""> </div>
+ */
+const elementHasCSSWithValue = async (selector, name, timeout, css, cssValue) => {
+    const element = await getElement(selector);
+    const elementName = Utils.getFunctionElementName(name) ?? defaultName;
+    const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout;
+    await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` });
+    const cssAttribute = await element.getCSSProperty(css);
+    if (cssAttribute?.value && cssAttribute?.value !== '') {
+        if (cssAttribute.value.includes(cssValue) === false)
+            throw new Error(`${elementName} contain the CSS attribute ${css} with an invalid value.`);
+    }
+    else {
+        throw new Error(`${elementName} does not contain the CSS attribute of ${css}.`);
+    }
+};
+exports.elementHasCSSWithValue = elementHasCSSWithValue;
 //# sourceMappingURL=index.js.map

@@ -15,6 +15,7 @@ declare const getElement: (selector: string | WebdriverIO.Element | Promise<Webd
  */
 declare const getElements: (selector: string | WebdriverIO.Element[] | Promise<WebdriverIO.Element[]>) => Promise<WebdriverIO.ElementArray>;
 declare const elementQuantityIsValid: (selector: WebdriverIO.Element[] | string, name: string, timeout: number, quantity: number) => Promise<void>;
+declare const elementIsExistingAndScrollIntoView: (selector: WebdriverIO.Element | string, name: string, timeout: number) => Promise<void>;
 declare const elementIsDisplayed: (selector: WebdriverIO.Element | string, name: string, timeout: number) => Promise<void>;
 /**
  * @example <input disabled>...</input>
@@ -30,4 +31,8 @@ declare const elementHasAttributeWithValue: (selector: WebdriverIO.Element | str
  * @example <p>Text Value</p>
  */
 declare const elementHasTextValue: (selector: WebdriverIO.Element | string, name: string, timeout: number, text: string) => Promise<void>;
-export { getElement, getElements, elementQuantityIsValid, elementIsDisplayed, elementIsEnabled, elementIsNotEnabled, elementContainsAttribute, elementHasAttributeWithValue, elementHasTextValue, };
+/**
+ * @example <div style=""> </div>
+ */
+declare const elementHasCSSWithValue: (selector: WebdriverIO.Element | string, name: string, timeout: number, css: string, cssValue: string) => Promise<void>;
+export { getElement, getElements, elementQuantityIsValid, elementIsExistingAndScrollIntoView, elementIsDisplayed, elementIsEnabled, elementIsNotEnabled, elementContainsAttribute, elementHasAttributeWithValue, elementHasTextValue, elementHasCSSWithValue, };

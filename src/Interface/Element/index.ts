@@ -63,6 +63,18 @@ const elementQuantityIsValid = async (
     }
   )
 }
+const elementIsExistingAndScrollIntoView = async (
+  selector: WebdriverIO.Element | string,
+  name: string,
+  timeout: number
+) => {
+  const element = await getElement(selector)
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
+  await element.scrollIntoView()
+  await browser.pause(850)
+}
 const elementIsDisplayed = async (selector: WebdriverIO.Element | string, name: string, timeout: number) => {
   const element = await getElement(selector)
   const elementName = Utils.getFunctionElementName(name) ?? defaultName
@@ -145,15 +157,56 @@ const elementHasTextValue = async (
   if (elementTextValue.includes(text) === false)
     throw new Error(`${elementName} does not contain the expected text value.`)
 }
+const elementGetCSS = async (selector: WebdriverIO.Element | string, name: string, timeout: number) => {
+  const array = [
+    {
+      name: '',
+      value: '',
+    },
+  ]
+  const element = await $(selector)
+  const elementName = name
+  const timeoutValue = timeout
+  const css = await element.getAttribute('style')
+  const parts = css.split(';')
+  console.log(parts)
+
+  return array
+}
+const elementContainsCSS = async () => {}
+/**
+ * @example <div style=""> </div>
+ */
+const elementHasCSSWithValue = async (
+  selector: WebdriverIO.Element | string,
+  name: string,
+  timeout: number,
+  css: string,
+  cssValue: string
+) => {
+  const element = await getElement(selector)
+  const elementName = Utils.getFunctionElementName(name) ?? defaultName
+  const timeoutValue = Utils.getFunctionTimeout(timeout) ?? defaultTimeout
+  await element.waitForExist({ timeout: timeoutValue, timeoutMsg: `${elementName} not found.` })
+  const cssAttribute = await element.getCSSProperty(css)
+  if (cssAttribute?.value && cssAttribute?.value !== '') {
+    if (cssAttribute.value.includes(cssValue) === false)
+      throw new Error(`${elementName} contain the CSS attribute ${css} with an invalid value.`)
+  } else {
+    throw new Error(`${elementName} does not contain the CSS attribute of ${css}.`)
+  }
+}
 
 export {
   getElement,
   getElements,
   elementQuantityIsValid,
+  elementIsExistingAndScrollIntoView,
   elementIsDisplayed,
   elementIsEnabled,
   elementIsNotEnabled,
   elementContainsAttribute,
   elementHasAttributeWithValue,
   elementHasTextValue,
+  elementHasCSSWithValue,
 }
