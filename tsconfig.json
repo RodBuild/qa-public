@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2022",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "declaration": true,
+    "types": ["node", "@wdio/globals/types", "expect-webdriverio"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
