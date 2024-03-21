@@ -1,6 +1,6 @@
 {
   "name": "@rodbuild/qa-public",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A package to combine with WDIO software; explore a collection of re-usable functions to simplify your testing workflow!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
