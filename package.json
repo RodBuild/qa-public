@@ -20,7 +20,7 @@
     "tsc": "npx tsc",
     "link": "npm link && cd ./developing/wdio && npm link @rodbuild/qa-public",
     "test": "npm run wdio --prefix ./developing/wdio",
-    "publish": "npm version patch && npm publish",
+    "publish-patch": "npm version patch && npm publish",
     "publish-minor": "npm version minor && npm publish",
     "publish-major": "npm version major && npm publish"
   },
